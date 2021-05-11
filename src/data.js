@@ -65,6 +65,23 @@ const data = [
       "https://res.cloudinary.com/coolps811/image/upload/v1620464517/o956ozrlbuntmwvhlm0o.png",
     menus: [
       {
+        menu_name: "Entrée",
+        menu: [
+          {
+            name: "Soup",
+            price: 14.99,
+          },
+          {
+            name: "Chips & Salsa",
+            price: 7.99,
+          },
+          {
+            name: "Chicken Nuggets",
+            price: 12.99,
+          },
+        ],
+      },
+      {
         menu_name: "Main",
         menu: [
           {
@@ -82,7 +99,7 @@ const data = [
         ],
       },
       {
-        menu_name: "Desserts",
+        menu_name: "Dessert",
         menu: [
           {
             name: "Ice Cream",
@@ -107,6 +124,23 @@ const data = [
       "https://res.cloudinary.com/coolps811/image/upload/v1620465379/we8g0yiipkcjkuo9e6p6.jpg",
     menus: [
       {
+        menu_name: "Entrée",
+        menu: [
+          {
+            name: "Soup",
+            price: 14.99,
+          },
+          {
+            name: "Chips & Salsa",
+            price: 7.99,
+          },
+          {
+            name: "Chicken Nuggets",
+            price: 12.99,
+          },
+        ],
+      },
+      {
         menu_name: "Main",
         menu: [
           {
@@ -124,7 +158,7 @@ const data = [
         ],
       },
       {
-        menu_name: "Desserts",
+        menu_name: "Dessert",
         menu: [
           {
             name: "Ice Cream",
@@ -141,6 +175,13 @@ const data = [
         ],
       },
     ],
+  },
+  {
+    _id: 4,
+    restaurant: "Greg Cafe",
+    img:
+      "https://res.cloudinary.com/coolps811/image/upload/v1620638190/oehozkdm2dumwtls5g4j.png",
+    menus: [],
   },
 ];
 

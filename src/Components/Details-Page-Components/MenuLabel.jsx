@@ -7,11 +7,9 @@ function MenuLabel({ item }) {
     <div>
       <p className={styles.title2}>{item.menu_name}</p>
       {item.menu.map((dish, index) => (
-        <>
-          <div className={styles.items}>
+          <div key={index} className={styles.items}>
             <div>{`${dish.name} $${dish.price} USD`}</div>
           </div>
-        </>
       ))}
     </div>
   );

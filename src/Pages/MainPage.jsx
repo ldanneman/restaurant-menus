@@ -1,10 +1,9 @@
 import React from "react";
-import Menus from "../Components/Menus";
+import Menus from "../Components/Main-Page-Components/Menus";
 
 function MainPage() {
   return (
     <div>
-      <p>MAINPAGE</p>
       <Menus />
     </div>
   );

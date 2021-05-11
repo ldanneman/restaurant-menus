@@ -4,11 +4,11 @@ import styles from "../../Styles/DetailsPage.module.css";
 
 function Menu({ selectedMenu }) {
   return (
-    <div>
-      <div>{selectedMenu.restaurant}</div>
+    <div className={styles.menu}>
+      {/* <div>{selectedMenu.restaurant}</div> */}
       {/* <div className={styles.title}>menu</div> */}
       {selectedMenu.menus.map((item, index) => (
-        <MenuLabel item={item} />
+        <MenuLabel key={index} item={item} />
       ))}
     </div>
   );
