@@ -52,12 +52,15 @@ function Table() {
 
   let array = [];
   let menus = data[params - 1].menus;
+  console.log("menus", typeof menus);
   for (let i = 0; i < menus.length; i++) {
     array.push({ menu_name: menus[i].menu_name });
     for (let j = 0; j < menus[i].menu.length; j++) {
       array.push(menus[i].menu[j]);
     }
   }
+  console.log("array", typeof array);
+  console.log("THE ARRAY", array);
   const [columns, setColumns] = useState([
     { title: "Menu", field: "menu_name" },
     { title: "Name", field: "name" },
@@ -66,9 +69,11 @@ function Table() {
 
   const handleRowUpdate = (newData, oldData, resolve) => {
     const index = oldData.tableData.id;
-    let newArray = [...array, (array[index] = newData)];
+    console.log("index", index);
+    let newArray = [array, (array[index] = newData)];
+    console.log("NEW", newArray);
 
-    const result = newArray.reduce((acc, curr) => {
+    const result = newArray[0].reduce((acc, curr) => {
       const { menu_name } = curr;
       if (menu_name) {
         acc.push({ menu_name, menu: [] });
@@ -78,7 +83,11 @@ function Table() {
       }
       return acc;
     }, []);
-    let updated = [...data, (data[params - 1].menus = result)];
+    // let updated = [...data, (data[params - 1].menus = result)];
+      let updated = [...data];
+      updated[params - 1].menus = result
+
+    console.log("UPDATED", updated);
 
     axios
       .post(`${BACK_PORT}/restaurantData/update`, updated, {

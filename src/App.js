@@ -22,12 +22,20 @@ function App() {
     axios
       .get(`${BACK_PORT}/restaurantData`)
       .then(function (response) {
+        console.log("the data", response.data);
+        console.log(typeof response.data);
+
+        // console.log("parsed data", JSON.parse(response));
+
         setData(response.data);
+        console.log("our data", data);
       })
       .catch(function (error) {
-        alert(error?.response?.data || "theError");
+        console.log(error?.response?.data || "theError");
       });
   }, []);
+  console.log("our data2", data);
+
   return data ? (
     <div className="App">
       <RestaurantContext.Provider value={{ data, setData, admin, setAdmin }}>

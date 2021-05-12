@@ -13,7 +13,7 @@ function Menus() {
       <Row gutter={[16, 16]}>
         {data.map(
           (item) =>
-            item.menus.length > 0 && (
+            item?.menus?.length > 0 && (
               <Col key={item._id} span={8}>
                 <Link
                   {...(admin
