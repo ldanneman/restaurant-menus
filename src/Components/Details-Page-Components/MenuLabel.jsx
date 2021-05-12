@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../../Styles/DetailsPage.module.css";
 
 function MenuLabel({ item }) {
-  console.log("HELLLO", item);
   return (
     <div>
       <p className={styles.title2}>{item.menu_name}</p>

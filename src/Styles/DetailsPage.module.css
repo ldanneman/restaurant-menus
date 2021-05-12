@@ -36,7 +36,15 @@
   /* background-attachment: fixed; */
   background-size: contain;
   min-height: 100vh;
+  position: relative;
   /* border: 2px solid yellow; */
+}
+
+.button {
+  position: absolute;
+  width: 5rem !important;
+  right: 34.3%;
+  cursor: pointer !important;
 }
 
 .detailsBody {
@@ -46,5 +54,5 @@
 
 .menu2 {
   /* border: 2px solid red; */
-  padding-top: 9rem;
+  padding-top: 8rem;
 }

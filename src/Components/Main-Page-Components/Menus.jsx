@@ -12,7 +12,7 @@ function Menus() {
     <div className={styles.siteCardWrapper}>
       <Row gutter={[16, 16]}>
         {data.map(
-          (item, index) =>
+          (item) =>
             item.menus.length > 0 && (
               <Col key={item._id} span={8}>
                 <Link

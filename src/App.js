@@ -30,7 +30,6 @@ function App() {
   }, []);
   return data ? (
     <div className="App">
-      {console.log("THE DATA", data)}
       <RestaurantContext.Provider value={{ data, setData, admin, setAdmin }}>
         <Router>
           <Nav />
@@ -38,7 +37,7 @@ function App() {
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route path="/home" component={MainPage} />
             <Route path="/details/:_id" component={Details} />
-            <Route path="/admin" component={Admin} />
+            <Route path="/admin/:_id" component={Admin} />
             <Route component={Error404} />
           </Switch>
         </Router>

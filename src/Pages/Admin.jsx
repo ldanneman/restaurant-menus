@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Table from "../Components/Admin-Page-Components/Table";
+import RestaurantContext from "../lib/Context/context";
+import { useHistory } from "react-router-dom";
 
 function Admin() {
-  return (
+  const history = useHistory();
+  const { admin } = useContext(RestaurantContext);
+  return admin == true ? (
     <div>
       <Table />
-      <p>ADMIN</p>
+    </div>
+  ) : (
+    <div>
+      {history.push("/home")}
+      {alert("only admins")}
     </div>
   );
 }

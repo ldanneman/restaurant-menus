@@ -1,10 +1,8 @@
 import React, { useState, useContext } from "react";
 import RestaurantContext from "../../lib/Context/context";
 import MaterialTable from "material-table";
-import { Select } from "@material-ui/core";
-
+import { useParams } from "react-router-dom";
 import { forwardRef } from "react";
-
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -20,6 +18,8 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import axios from "axios";
+import BACK_PORT from "../../lib/Context/BackPort";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -46,61 +46,135 @@ const tableIcons = {
 };
 
 function Table() {
-  const { data } = useContext(RestaurantContext);
+  const { data, setData } = useContext(RestaurantContext);
+
+  const params = useParams()._id;
+
   let array = [];
-  for (let i = 0; i < data[0].menus.length; i++) {
-    array.push({ menu_name: data[0].menus[i].menu_name });
-    for (let j = 0; j < data[0].menus[i].menu.length; j++) {
-      array.push(data[0].menus[i].menu[j]);
+  let menus = data[params - 1].menus;
+  for (let i = 0; i < menus.length; i++) {
+    array.push({ menu_name: menus[i].menu_name });
+    for (let j = 0; j < menus[i].menu.length; j++) {
+      array.push(menus[i].menu[j]);
     }
   }
-  console.log("THE ARRAY", array);
-  console.log("THE DATA$$$", data[0].menus[0].menu);
   const [columns, setColumns] = useState([
     { title: "Menu", field: "menu_name" },
     { title: "Name", field: "name" },
     { title: "Price", field: "price" },
   ]);
 
-  //   const [data, setData] = useState([
-  //     { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 },
-  //     {
-  //       name: "Zerya Betül",
-  //       surname: "Baran",
-  //       birthYear: 2017,
-  //       birthCity: 34,
-  //     },
-  //   ]);
+  const handleRowUpdate = (newData, oldData, resolve) => {
+    const index = oldData.tableData.id;
+    let newArray = [...array, (array[index] = newData)];
+
+    const result = newArray.reduce((acc, curr) => {
+      const { menu_name } = curr;
+      if (menu_name) {
+        acc.push({ menu_name, menu: [] });
+      } else {
+        const { name, price } = curr;
+        acc[acc.length - 1].menu.push({ name, price });
+      }
+      return acc;
+    }, []);
+    let updated = [...data, (data[params - 1].menus = result)];
+
+    axios
+      .post(`${BACK_PORT}/restaurantData/update`, updated, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        setData(updated);
+        resolve();
+      })
+      .catch((error) => {
+        console.log("error", error);
+        resolve();
+      });
+  };
+
+  const handleRowAdd = (newData, resolve) => {
+    let dataToAdd = [...array];
+    dataToAdd.push(newData);
+    const result = dataToAdd.reduce((acc, curr) => {
+      const { menu_name } = curr;
+      if (menu_name) {
+        acc.push({ menu_name, menu: [] });
+      } else {
+        const { name, price } = curr;
+        acc[acc.length - 1].menu.push({ name, price });
+      }
+      return acc;
+    }, []);
+    let added = [...data, (data[params - 1].menus = result)];
+    axios
+      .post(`${BACK_PORT}/restaurantData/update`, added, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        setData(added);
+        resolve();
+      })
+      .catch((error) => {
+        alert(error?.response?.data);
+        resolve();
+      });
+  };
+
+  const handleRowDelete = (oldData, resolve) => {
+    const dataDelete = [...array];
+    const index = oldData.tableData.id;
+    dataDelete.splice(index, 1);
+    console.log(dataDelete);
+    const result = dataDelete.reduce((acc, curr) => {
+      const { menu_name } = curr;
+      if (menu_name) {
+        acc.push({ menu_name, menu: [] });
+      } else {
+        const { name, price } = curr;
+        acc[acc.length - 1].menu.push({ name, price });
+      }
+      return acc;
+    }, []);
+    let deleted = [...data, (data[params - 1].menus = result)];
+    axios
+      .post(`${BACK_PORT}/restaurantData/update`, deleted, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        setData(deleted);
+        resolve();
+      })
+      .catch((error) => {
+        console.log(error);
+        resolve();
+      });
+  };
+
   return (
     <div>
       <MaterialTable
-        title="Bulk Edit Preview"
+        title={data[params - 1].restaurant}
         icons={tableIcons}
         rowsPerPageOptions={[20, 10, 5]}
         columns={columns}
         data={array}
         options={{
-          pageSize: 12,
+          pageSize: 15,
         }}
         editable={{
-          onBulkUpdate: (changes) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve();
-              }, 1000);
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve) => {
+              handleRowUpdate(newData, oldData, resolve);
             }),
           onRowAdd: (newData) =>
             new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-              }, 1000);
-              //   handleRowAdd(newData, resolve);
+              handleRowAdd(newData, resolve);
             }),
           onRowDelete: (oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve();
-              }, 1000);
+            new Promise((resolve) => {
+              handleRowDelete(oldData, resolve);
             }),
         }}
       />

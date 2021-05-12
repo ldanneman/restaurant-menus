@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.switch {
+  height: 1.5rem !important;
+  background: #1890ff !important;
+}
