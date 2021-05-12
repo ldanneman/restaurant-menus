@@ -43,7 +43,7 @@
 .button {
   position: absolute;
   width: 5rem !important;
-  right: 34.3%;
+  right: 46.5%;
   cursor: pointer !important;
 }
 
@@ -55,4 +55,29 @@
 .menu2 {
   /* border: 2px solid red; */
   padding-top: 8rem;
+}
+
+.box {
+  /* position: relative; */
+  /* top: 100; */
+}
+
+.img {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25rem;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 992px) {
+  .img {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    width: 5rem;
+    top: 0;
+    left: 0;
+  }
 }
