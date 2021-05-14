@@ -28,7 +28,7 @@ function App() {
         console.log(error?.response?.data || "theError");
       });
   }, []);
-  
+
   return data ? (
     <div className="App">
       <RestaurantContext.Provider value={{ data, setData, admin, setAdmin }}>
