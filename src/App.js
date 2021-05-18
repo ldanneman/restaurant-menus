@@ -13,7 +13,7 @@ import Error404 from "./Pages/Error404";
 import Nav from "./Components/Global-Components/Nav";
 import RestaurantContext from "./lib/Context/context";
 import axios from "axios";
-import BACK_PORT from "./lib/Context/BackPort";
+import { BACK_PORT } from "./lib/Context/BackPort";
 
 function App() {
   const [data, setData] = useState(null);
@@ -45,7 +45,9 @@ function App() {
       </RestaurantContext.Provider>
     </div>
   ) : (
-    <div>Loading</div>
+    <div className="center">
+      <div className="lds-dual-ring"></div>
+    </div>
   );
 }
 

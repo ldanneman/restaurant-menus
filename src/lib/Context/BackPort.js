@@ -1,3 +1,5 @@
-const BACK_PORT = `https://restaurant-menus-backend.herokuapp.com/api`;
+const BACK_PORT =
+  `http://localhost:5000/api` ??
+  `https://restaurant-menus-backend.herokuapp.com/api`;
 
-export default BACK_PORT;
+export { BACK_PORT };
